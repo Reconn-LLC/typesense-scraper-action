@@ -6,22 +6,21 @@ branding:
   color: black
 
 inputs:
+    dotenv-file:
+        description: Dotenv file contaiment
+        required: true
+  
     config:
         description: The path to your DocSearch config JSON file, relative to the root of your repository. Defaults to "docsearch.config.json".
         required: false
         default: docsearch.config.json
-
-secrets:
-    dotenv-file:
-        description: Dotenv file contaiment
-        required: false
 
 runs:
   using: composite
   steps:
     - name: Create env file
       run: |
-        echo "${{ secrets.dotenv-file }}" > .env
+        echo "${{ inputs.dotenv-file }}" > .env
 
     - name: Run DocSearch Scraper
       shell: bash
